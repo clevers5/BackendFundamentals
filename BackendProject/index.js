@@ -10,5 +10,10 @@ app.get('/',function(request, response){
     return response.send("<h1>Hola mundo</h1>");
 })
 
+app.post("/saludar",function(request, response){
+    console.log(request.body);
+    return response.status(201).send("<h1>Hola</h1>");
+})
+
 app.listen(4080,()=>{
     console.log('Server is running on port 4080');}); //Callback function
