@@ -1,0 +1,39 @@
+const express = require('express');
+// Destructuracion de objetos
+const { port } = require('./config');
+const flights = require('./routes/flights');
+
+
+const app = express();
+
+// Middleware
+app.use(express.urlencoded({
+    extended: true
+})) 
+app.use(express.json()) 
+
+//Routes
+app.use(flights);
+
+
+//Página principal
+app.get('/',function(request, response){
+    return response.send("<h1>Hola mundo</h1>");
+})
+
+//Servidor escuchando en el puerto indicado
+app.listen(port,()=>{
+    console.log(`Server is running on port ${port}`);
+}); //Callback function
+
+
+
+
+    //NODEMON --> Para ejecutar el servidor en el puerto 4100 sin tener que reiniciar cuando realicemos algun cambio
+    // Comando --> "dev":"npx nodemon index.js" --> npm run dev
+
+    //New project
+    // npm init -y --> Crea un proyecto con el comando
+    // npm install express --save --> Instala el modulo express
+    // npm install nodemon -D --> Instala el modulo nodemon
+    // npm install dotenv -D --> Instala el modulo dotenv para leer las variables de entorno
