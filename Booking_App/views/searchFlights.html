@@ -8,5 +8,14 @@
   </head>
   <body>
     <h1>SearchFlights</h1>
+
+    <script>
+      async function getData() {
+        const response = await fetch("/api/flights");
+        const data = response.json();
+        console.log(data);
+      }
+      getData();
+    </script>
   </body>
 </html>

@@ -3,20 +3,33 @@ const FlightsModels = require("../models/FlightsModels");
 
 
 async function getHome (request, response) {
-    const flights = new FlightsModels();
-    const result = await flights.getAll();
-    
-    console.log(result);
-
     return getView(response, 'index.html');
 
 }
 
-function searchFlights (request, response) {
-    return getView(response, 'searchFligths.html');
+
+async function getFlights (request, response) {
+    const result = await FlightsModels.getAll();
+    
+    return response.json(result);
+
 }
 
-module.exports = {getHome, searchFlights}; //Exportamos el router para poder usarlo en el index.js
+async function getCreateFlightForm (request, response) {
+     return getView(response, 'admin/flights/create.html');
+}
+
+async function createFlight (request, response) {
+    const body = request.body;
+    const result = await FlightsModels.create(body);
+    return response.json(result);
+}
+
+function searchFlights (request, response) {
+    return getView(response, 'searchFlights.html');
+}
+
+module.exports = {getHome, searchFlights, getFlights, getCreateFlightForm, createFlight}; //Exportamos el router para poder usarlo en el index.js
 
 
 //Otra forma de hacerlo:
