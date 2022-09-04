@@ -25,12 +25,27 @@ const connection = async () => {
     return connection;
 }
 
-const query = async (sql) => {
-    const result = await (await connection()).query(sql,values);
-    console.log(result);
-    return result;
+const query = async (sql, values) => {
+   try{
+    //Forma 1
+        const result = await (await connection()).query(sql,values);
+    
+        //Forma 2
+    //    const connection = await connection();
+    //    const result = await connection.query(sql,values);
+
+        return {
+            success: true,
+            data:result[0]
+        } 
+    } catch (error){
+        return {
+            success: false,
+            message: error.message
+        }
+    }
 }
 
-modeule.exports={
+module.exports={
     query
 }
