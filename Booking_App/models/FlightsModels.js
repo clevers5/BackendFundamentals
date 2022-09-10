@@ -1,3 +1,4 @@
+const formatDate = require("../helpers/formatDate");
 const { query } = require("../libs/db");
 
 class FlightsModels{
@@ -12,7 +13,18 @@ class FlightsModels{
     static create(data){
         //Crear Query
         //INSERT INTO
-    }
+    //     const {origen, destino, hora_salida, hora_llegada, precio} = data;
+    //     return query(`INSERT INTO flights(origen, destino, hora_salida, hora_llegada, precio) values("${origen}","${destino}","${formatDate(hora_salida)}","${formatDate(hora_llegada)}","${precio}")`); //Devuelve una promesa
+     data.hora_salida = formatDate(data.hora_salida);
+     data.hora_llegada = formatDate(data.hora_llegada);
+   //Segunda forma de hacerlo 
+    return query(`INSERT INTO flights(??) 
+                                values(?)`,
+    [
+        Object.keys(data), 
+        Object.values(data)
+    ]); //Devuelve una promesa
+    }   
 }
 
 module.exports = FlightsModels;
