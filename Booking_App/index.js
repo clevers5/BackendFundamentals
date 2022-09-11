@@ -2,7 +2,7 @@ const express = require('express');
 // Destructuracion de objetos
 const { port } = require('./config');
 const flights = require('./routes/flights');
-
+const auth = require('./routes/auth');
 
 const app = express();
 
@@ -12,8 +12,15 @@ app.use(express.urlencoded({
 })) 
 app.use(express.json()) 
 
+
+
+//Midleware para archivos estaticos:
+// app.use('/static', express.static(__dirname + '/static')); 
+app.use('/static', express.static('static'));
+
 //Routes
 app.use(flights);
+app.use(auth);
 
 
 //Página principal
@@ -27,7 +34,7 @@ app.listen(port,()=>{
 }); //Callback function
 
 
-
+ 
 
     //NODEMON --> Para ejecutar el servidor en el puerto 4100 sin tener que reiniciar cuando realicemos algun cambio
     // Comando --> "dev":"npx nodemon index.js" --> npm run dev
